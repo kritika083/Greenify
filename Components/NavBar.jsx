@@ -23,9 +23,12 @@ export default function NavBar(props) {
   const [requiredItems, setRequiredItems] = useState();
 
   useEffect(() => {
+  if(!currentUser){
+    return;
+  }
     const unsub = async () => {
       
-      const id = currentUser.uid;
+      const id = currentUser?.uid;
       const docRef = doc(db, "Users", id);
       const docSnap = await getDoc(docRef);
       setpoints(docSnap.data());

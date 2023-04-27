@@ -23,6 +23,9 @@ export default function Dashboard({ item, quote }) {
   const [Name, setName] = useState("");
   const [Desc, setDesc] = useState("");
   const [imgURL, setimgURL] = useState("");
+
+  const [cansub, setcanSub] = useState(false);
+
   const somefiles = useRef();
   const wholediv = useRef();
   const done = useRef();
@@ -31,6 +34,7 @@ export default function Dashboard({ item, quote }) {
 
   const imgSubmit = (e) => {
     console.log("asdfghj");
+    setcanSub(false);
     const file = e.target.files[0];
     if (!file) {
       console.log("Nothing");
@@ -53,6 +57,7 @@ export default function Dashboard({ item, quote }) {
       async () => {
         const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
         setimgURL(downloadURL);
+        setcanSub(true)
       }
     );
   };
@@ -78,7 +83,8 @@ export default function Dashboard({ item, quote }) {
     setDesc("");
     setimgURL("");
     somefiles.current.value = null;
-    setTimeout(router.push('/home'), 500)
+    if(cansub){
+    router.push('/home')}
     // router.push(`/home`);
 
   };
